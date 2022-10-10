@@ -1,0 +1,10 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/PDFHelperLibrary/v17
+/.vs/PDF/FileContentIndex
+/PDFTester/bin/Debug/net6.0
+/PDFTester/obj
+/PDFWriter/bin/Debug/net6.0
+/PDFWriter/obj
