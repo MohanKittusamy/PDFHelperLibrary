@@ -226,8 +226,7 @@ namespace PDFWriter
 
         internal List<PdfEmbeddedFile> EmbeddedFileArray;
         internal List<PdfExtGState> ExtGStateArray;
-        internal List<PdfFont> FontArray;
-        internal List<PdfAnnotation> LinkAnnotArray;
+        internal List<PdfFont> FontArray;        
         internal List<PdfLocationMarker> LocMarkerArray;
         internal List<PdfWebLink> WebLinkArray;
         internal List<PdfFontTypeOne> TypeOneFont;
@@ -846,10 +845,7 @@ namespace PDFWriter
         // Finalize PDF file structure
         ////////////////////////////////////////////////////////////////////
         internal void FinalizeFileStructure()
-        {
-            // add destinations to link annotation
-            if (LinkAnnotArray != null) AddDestToLinkAnnot();
-
+        {            
             // create named destinations
             if (LocMarkerArray != null) CreateNamedDestinations();
 
@@ -1018,26 +1014,7 @@ namespace PDFWriter
             return;
         }
 
-        ////////////////////////////////////////////////////////////////////
-        // Add destinations to link annotations
-        ////////////////////////////////////////////////////////////////////
-        internal void AddDestToLinkAnnot()
-        {
-            foreach (PdfAnnotation Annot in LinkAnnotArray)
-            {
-                // search for location marker name
-                string LocMarkerName = ((PdfAnnotLinkAction)Annot).LocMarkerName;
-                int Index = LocMarkerArray.BinarySearch(new PdfLocationMarker(LocMarkerName));
-
-                // no location marker was defined for this name
-                if (Index < 0) throw new ApplicationException("No location marker was defined for: " + LocMarkerName);
-
-                // add action
-                Annot.Dictionary.AddFormat("/A", "<</Type/Action/S/GoTo/D{0}>>", Annot.Document.LocMarkerArray[Index].DestStr);
-            }
-            return;
-        }
-
+        
         ////////////////////////////////////////////////////////////////////
         // Create named destinations
         ////////////////////////////////////////////////////////////////////

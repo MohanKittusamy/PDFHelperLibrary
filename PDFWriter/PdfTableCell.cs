@@ -207,31 +207,7 @@ namespace PDFWriter
         // the bottom left corner of the barcode is at (0, 0)
         private PdfRectangle BarcodeBox;
 
-        /// <summary>
-        /// Sets a web link for this cell.
-        /// </summary>
-        /// <remarks>
-        /// <para>
-        /// The web link string is converted to Annotation object.
-        /// </para>
-        /// </remarks>
-        public string WebLink
-        {
-            set
-            {
-                Annotation = new PdfAnnotWebLink(Parent.Document, value);
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets annotation action derived classes
-        /// </summary>
-        /// <remarks>
-        /// <para>The user can activate the annotation action by clicking anywhere in the cell area.
-        /// Right click for attached file.</para>
-        /// </remarks>
-        public PdfAnnotation Annotation { get; set; }
-
+       
         /// <summary>
         /// Gets cell's frame left side (grid line).
         /// </summary>
@@ -598,14 +574,7 @@ namespace PDFWriter
                     ImageRect = ImageRect.Move(LeftPos(ImageWidth), TopPos(ImageHeight) - ImageHeight);
                     Parent.Contents.DrawImage(Image, ImageRect);
                     break;                
-            }
-
-            // cell has annotation action
-            if (Annotation != null)
-            {
-                if (Parent.Page != null) Annotation.AnnotPage = Parent.Page;
-                Annotation.AnnotRect = new PdfRectangle(ClientLeft, ClientBottom, ClientRight, ClientTop);
-            }
+            }          
             return;
         }
 
@@ -689,8 +658,7 @@ namespace PDFWriter
         ////////////////////////////////////////////////////////////////////
         internal void Reset()
         {
-            Value = null;
-            Annotation = null;
+            Value = null;       
             ImageWidth = 0.0;
             ImageHeight = 0.0;
             return;

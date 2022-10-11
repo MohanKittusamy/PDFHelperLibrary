@@ -3,6 +3,11 @@ using PDFWriter;
 using System.Drawing;
 using System.Text;
 
+/*Its a DRAFT Solution only, to understand the different options to create the PDF document 
+    Its very challanging and interesting to build with complex objects. 
+   So far spent only 4.5 Hrs to understand and got better visibility now to make the custom library 
+   will start interface defination before start implementation while we start real time work
+*/
 Console.WriteLine("********** PDF Helper Library V1.0 *****************");
 Console.WriteLine();
 
@@ -161,7 +166,7 @@ static void CreateAdvancedPdfFile()
 
             // draw web link to the article
             TextCtrl1.Justify = TextJustify.Right;
-            TextCtrl1.Annotation = new PdfAnnotWebLink(document, pdflink);
+           
             Contents.DrawText(TextCtrl1, 7.4, 0.85, "Click to view article");
 
 

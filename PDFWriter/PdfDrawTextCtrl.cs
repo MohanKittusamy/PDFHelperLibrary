@@ -33,27 +33,7 @@ namespace PDFWriter
         /// </summary>
         public TextJustify Justify { get; set; }
 
-        /// <summary>
-        /// Annotation action associated with this text segment
-        /// </summary>
-        public PdfAnnotation Annotation
-        {
-            get
-            {
-                return _Annotation;
-            }
-            set
-            {
-                _Annotation = value;
-                if (value != null)
-                {
-                    DrawStyle = DrawStyle.Underline;
-                    TextColor = Color.Blue;
-                }
-            }
-        }
-        private PdfAnnotation _Annotation;
-
+       
         /// <summary>
         /// Get font
         /// </summary>
@@ -237,8 +217,7 @@ namespace PDFWriter
             FontSize = Other._FontSize;
             TextColor = Other.TextColor;
             DrawStyle = Other.DrawStyle;
-            Justify = Other.Justify;
-            _Annotation = Other._Annotation;
+            Justify = Other.Justify;            
             return;
         }
 
@@ -256,8 +235,7 @@ namespace PDFWriter
                 _FontSize == Other._FontSize &&
                 TextColor == Other.TextColor &&
                 DrawStyle == Other.DrawStyle &&
-                Justify == Other.Justify &&
-                _Annotation == Other._Annotation;
+                Justify == Other.Justify;    
         }
 
         /// <summary>

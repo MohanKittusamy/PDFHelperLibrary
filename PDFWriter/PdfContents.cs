@@ -1262,8 +1262,7 @@ namespace PDFWriter
                 PointD ArcStart,
                 PointD ArcEnd,
                 SizeD Radius,
-                double Rotate,
-                ArcType Type,
+                double Rotate,               
                 BezierPointOne OutputStartPoint
                 )
         {
@@ -1277,14 +1276,7 @@ namespace PDFWriter
                 case BezierPointOne.LineTo:
                     LineTo(ArcStart);
                     break;
-            }
-
-            // create arc
-            PointD[] SegArray = PdfArcToBezier.CreateArc(ArcStart, ArcEnd, Radius, Rotate, Type);
-
-            // output
-            for (int Index = 1; Index < SegArray.Length;)
-                DrawBezier(SegArray[Index++], SegArray[Index++], SegArray[Index++]);
+            }           
             return;
         }
 
@@ -1809,26 +1801,6 @@ namespace PDFWriter
             // we have color restore graphics state
             if (TextCtrl.TextColor != Color.Empty) RestoreGraphicsState();
 
-            // annotation
-            if (TextCtrl.Annotation != null)
-            {
-                // adjust position
-                switch (TextCtrl.Justify)
-                {
-                    // right
-                    case TextJustify.Right:
-                        PosX -= TextWidth;
-                        break;
-
-                    // center
-                    case TextJustify.Center:
-                        PosX -= 0.5 * TextWidth;
-                        break;
-                }
-
-                TextCtrl.Annotation.AnnotRect = new PdfRectangle(PosX, PosY - TextCtrl.TextDescent, PosX + TextWidth, PosY + TextCtrl.TextAscent);
-            }
-
             // return text width
             return TextWidth;
         }
@@ -1987,13 +1959,7 @@ namespace PDFWriter
             EndTextMode();
 
             // restore graphics state
-            RestoreGraphicsState();
-
-            // add rectangle to annotation
-            if (TextCtrl.Annotation != null)
-            {
-                TextCtrl.Annotation.AnnotRect = new PdfRectangle(PosX, PosY - TextCtrl.TextDescent, PosX + Width, PosY + TextCtrl.TextAscent);
-            }
+            RestoreGraphicsState();           
 
             // exit
             return Width;
@@ -2919,8 +2885,7 @@ namespace PDFWriter
         {
             double SegPosX = PosX;
             foreach (PdfTextBoxSeg Seg in Line.SegArray)
-            {
-                if (Seg.Annotation != null && Page != null) Seg.Annotation.AnnotPage = Page;
+            {             
                 double SegWidth = DrawText(Seg, SegPosX, PosY, Seg.Text);
                 SegPosX += SegWidth;
             }
@@ -2951,8 +2916,7 @@ namespace PDFWriter
             else SegPosX += 0.5 * (Width - LineWidth);
 
             foreach (PdfTextBoxSeg Seg in Line.SegArray)
-            {
-                if (Seg.Annotation != null && Page != null) Seg.Annotation.AnnotPage = Page;
+            {            
                 double SegWidth = DrawText(Seg, SegPosX, PosY, Seg.Text);
                 SegPosX += SegWidth;
             }
@@ -2983,13 +2947,7 @@ namespace PDFWriter
             foreach (PdfTextBoxSeg Seg in Line.SegArray)
             {
                 double SegWidth = DrawText(Seg, SegPosX, PosY, Seg.Text) + Seg.SpaceCount * WordSpacing + Seg.Text.Length * CharSpacing;
-                if (Seg.Annotation != null)
-                {
-                    //					if (Page == null) throw new ApplicationException("TextBox with WebLink. You must call DrawText with PdfPage");
-                    if (Page != null) Seg.Annotation.AnnotPage = Page;
-                    Seg.Annotation.AnnotRect = new PdfRectangle(SegPosX, PosY - Seg.TextDescent,
-                        SegPosX + SegWidth, PosY + Seg.TextAscent);
-                }
+              
                 SegPosX += SegWidth;
             }
             RestoreGraphicsState();

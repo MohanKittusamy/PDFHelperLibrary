@@ -233,34 +233,7 @@ namespace PDFWriter
             return;
         }
 
-        /// <summary>
-        /// Load image from Pdf417Encoder
-        /// </summary>
-        /// <param name="Pdf417Encoder">Pdf417 encoder</param>
-        public void LoadImage
-                (
-                Pdf417Encoder Pdf417Encoder
-                )
-        {
-            // barcode width and height
-            WidthPix = Pdf417Encoder.ImageWidth;
-            HeightPix = Pdf417Encoder.ImageHeight;
-
-            // black and white barcode image
-            BWImage = Pdf417Encoder.ConvertBarcodeMatrixToPixels();
-
-            // set save as to BWImage
-            SaveAs = SaveImageAs.BWImage;
-            ReverseBW = true;
-
-            // write to output file
-            SaveImageObject();
-
-            // exit
-            return;
-        }
-
-        
+      
         ////////////////////////////////////////////////////////////////////
         // Load image from disk file into Image class
         ////////////////////////////////////////////////////////////////////

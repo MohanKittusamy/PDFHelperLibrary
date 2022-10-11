@@ -48,38 +48,7 @@ namespace PDFWriter
                 ) : base(Other)
         {
             Justify = TextJustify.Left;
-            Text = string.Empty;
-            Annotation = null;
-
-            // if there is annotation, a copy must be created
-            if (Other.Annotation != null)
-            {
-                if (Other.Annotation.GetType() == typeof(PdfAnnotWebLink))
-                {
-                    Annotation = new PdfAnnotWebLink((PdfAnnotWebLink)Other.Annotation);
-                }
-                else if (Other.Annotation.GetType() == typeof(PdfAnnotLinkAction))
-                {
-                    Annotation = new PdfAnnotLinkAction((PdfAnnotLinkAction)Other.Annotation);
-                }
-                else if (Other.Annotation.GetType() == typeof(PdfAnnotStickyNote))
-                {
-                    Annotation = new PdfAnnotStickyNote((PdfAnnotStickyNote)Other.Annotation);
-                }
-                else if (Other.Annotation.GetType() == typeof(PdfAnnotFileAttachment))
-                {
-                    Annotation = new PdfAnnotFileAttachment((PdfAnnotFileAttachment)Other.Annotation);
-                }
-                else if (Other.Annotation.GetType() == typeof(PdfAnnotDisplayMedia))
-                {
-                    Annotation = new PdfAnnotDisplayMedia((PdfAnnotDisplayMedia)Other.Annotation);
-                }
-                else
-                {
-                    throw new ApplicationException("Annotation copy error");
-                }
-            }
-
+            Text = string.Empty;          
             return;
         }
     }
