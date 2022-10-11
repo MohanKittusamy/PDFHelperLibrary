@@ -260,33 +260,7 @@ namespace PDFWriter
             return;
         }
 
-        /// <summary>
-        /// Load image from QRCode encoder
-        /// </summary>
-        /// <param name="QREncoder">QRCode encoder</param>
-        public void LoadImage
-                (
-                PdfQREncoder QREncoder
-                )
-        {
-            // barcode width and height
-            WidthPix = QREncoder.QRCodeImageDimension;
-            HeightPix = WidthPix;
-
-            // black and white barcode image
-            BWImage = QREncoder.ConvertQRCodeMatrixToPixels();
-
-            // set save as to BWImage
-            SaveAs = SaveImageAs.BWImage;
-            ReverseBW = true;
-
-            // write to output file
-            SaveImageObject();
-
-            // exit
-            return;
-        }
-
+        
         ////////////////////////////////////////////////////////////////////
         // Load image from disk file into Image class
         ////////////////////////////////////////////////////////////////////

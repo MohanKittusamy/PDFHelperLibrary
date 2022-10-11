@@ -201,11 +201,7 @@ namespace PDFWriter
         /// of ImageWidth and ImageHeight.
         /// </remarks>
         public double ImageHeight { get; set; }
-
-        /// <summary>
-        /// Gets barcode if type is Barcode
-        /// </summary>
-        public PdfBarcode Barcode { get; internal set; }
+               
 
         // bounding box for barcode plus text
         // the bottom left corner of the barcode is at (0, 0)
@@ -444,27 +440,7 @@ namespace PDFWriter
                     // set type to image
                     Type = CellType.Image;
                 }
-
-                // value is a derived class of barcode
-                else if (ValueType.BaseType == typeof(PdfBarcode))
-                {
-                    // set barcode
-                    Barcode = (PdfBarcode)Value;
-
-                    // test barcode height
-                    if (Style.BarcodeCtrl.Height <= 0.0)
-                        throw new ApplicationException("PdfTableStyle: BarcodeHeight must be defined.");
-
-                    // calculate barcode bounding box
-                    BarcodeBox = Barcode.GetBarcodeBox(Style.BarcodeCtrl);
-
-                    // adjust cell's height
-                    CellHeight += BarcodeBox.Height;
-
-                    // set type to barcode
-                    Type = CellType.Barcode;
-                }
-
+            
                 // value is basic mostly numeric object
                 else
                 {
@@ -621,17 +597,7 @@ namespace PDFWriter
                     PdfRectangle ImageRect = new PdfRectangle(0, 0, ImageWidth, ImageHeight);
                     ImageRect = ImageRect.Move(LeftPos(ImageWidth), TopPos(ImageHeight) - ImageHeight);
                     Parent.Contents.DrawImage(Image, ImageRect);
-                    break;
-
-                // barcode
-                case CellType.Barcode:
-                    double BarcodeLeft = LeftPos(BarcodeBox.Width) - BarcodeBox.Left;
-                    double BarcodeBottom = TopPos(BarcodeBox.Height) - BarcodeBox.Top;
-                    BarcodeJustify Save = Style.BarcodeCtrl.Justify;
-                    Style.BarcodeCtrl.Justify = BarcodeJustify.Left;
-                    Parent.Contents.DrawBarcode(Style.BarcodeCtrl, BarcodeLeft, BarcodeBottom, Barcode);
-                    Style.BarcodeCtrl.Justify = Save;
-                    break;
+                    break;                
             }
 
             // cell has annotation action
