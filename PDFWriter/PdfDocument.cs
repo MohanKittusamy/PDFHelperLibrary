@@ -219,8 +219,7 @@ namespace PDFWriter
         internal PdfObject PagesObject;     // parent object of all pages
         internal PdfPage CurrentPage;       // current page
         internal PdfEncryption Encryption;  // encryption dictionary
-        internal PdfBookmark BookmarksRoot; // bookmarks (document outline) dictionary
-        internal PdfAcroForm AcroForm;      // acro form (fillable document)
+        internal PdfBookmark BookmarksRoot; // bookmarks (document outline) dictionary       
         internal int[] ResCodeNo = new int[(int)ResCode.Length]; // resource code next number
         internal PdfInfo InfoObject;
         internal byte[] DocumentID;         // document ID
